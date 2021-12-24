@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <script type='text/javascript'>
+        
+    async function enviarPost(parametro) {
+        var url = document.URL + parametro;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.send(null);
+        await new Promise(r => setTimeout(r, 200));
+        location.reload();
+    }
+    
+    function cambioEstadoVentana () {
+            var button_text = document.getElementById('customRange').value;
+            if (button_text=='0') {
+    //window.location.href = '/cerrar_ventana';//code
+    enviarPost('cerrar_ventana');
+            }else if (button_text=='1') {
+    //window.location.href = '/abrir_ventana_25';//code
+    enviarPost('abrir_ventana_25');
+            }else if (button_text=='2') {
+    //window.location.href = '/abrir_ventana_50';//code
+    enviarPost('abrir_ventana_50');
+            }else if (button_text=='3') {
+    //window.location.href = '/abrir_ventana_75';//code
+    enviarPost('abrir_ventana_75');
+            }if (button_text=='4') {
+    //window.location.href = '/abrir_ventana_100';//code
+    enviarPost('abrir_ventana_100');
+            }
+            console.log(button_text);
+    }
+
+    function cambioEstadoPersianas() {
+        var button_estado = document.getElementById('customSwitch1').checked;
+        if (button_estado) {
+            //window.location.href = '/abrir_persianas';//code
+            enviarPost('abrir_persianas');
+        }else if (!button_estado) {
+            //window.location.href = '/cerrar_persianas';//code
+            enviarPost('cerrar_persianas');
+        }
+        console.log('Estado persianas: '+button_estado);
+    }
+
+    function cambioEstadoAutocerrado(args) {
+        var button_estado = document.getElementById('customSwitch2').checked;
+        if (button_estado) {
+            window.location.href = '/activar_autocerrado_lluvia';//code  
+        }else if (!button_estado) {
+            window.location.href = '/desactivar_autocerrado_lluvia';//code  
+        }
+        console.log('Estado autocerrado: '+button_estado);
+    }
+
+    </script>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous' type='text/css'>
+
+    <title>Ventana Cuarto Santi</title>
+</head>
+
+<body>
+    <br>
+
+    <h1 class='display-1' align='center'>Ventana Cuarto</h1><br>
+
+    <div align='center' class='p-3 mb-2 bg-danger text-white'>
+        Se detecta lluvia y el autocerrado está desactivado.
+    </div><br>
+
+    <div class='row'>
+        <div align='center' class='col'>
+            <h4>Hora actual</h4>
+
+            <div style='text-align:center;padding:1em 0;'>
+                <iframe src='https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&amp;size=small&amp;timezone=America%2FBogota' width='100%' height='90' frameborder='0' seamless=''></iframe>
+            </div><br>
+            <br>
+            <img src='https://image.flaticon.com/icons/png/512/595/595067.png' width='50' height='50' class='img-fluid' alt='Responsive image'><br>
+            <br>
+
+            <p class='lead'>Se detecta <a class="text-danger">fuerte lluvia</a><br>
+            mediante el sensor</p><br>
+        </div>
+
+        <div align='center' class='col-5' style='min-width: {{darMinimoPantalla();}};'>
+            <h4>Ventana</h4>
+
+            <p class='lead'>La ventana se encuentra cerrada</p><br>
+
+            <div class='row'>
+                <div align='left' class='col'>
+                    Cerrada
+                </div>
+
+                <div align='left' class='col'>
+                    25%
+                </div>
+
+                <div align='center' class='col'>
+                    50%
+                </div>
+
+                <div align='right' class='col'>
+                    75%
+                </div>
+
+                <div align='right' class='col'>
+                    Abierta
+                </div>
+            </div><input type='range' class='custom-range' value='1' min='0' max='4' id='customRange'><br>
+            <br>
+            <button class='btn btn-primary' type='submit' onclick='cambioEstadoVentana()'>Actualizar</button><br>
+            <br>
+            <br>
+
+            <h4>Persianas</h4>
+
+            <p class='lead'>Las persianas se encuentran abiertas</p><br>
+
+            <div class='custom-control custom-switch'>
+                <input type='checkbox' class='custom-control-input' id='customSwitch1' onclick='cambioEstadoPersianas()'> <label class='custom-control-label' for='customSwitch1'>Abiertas</label>
+            </div>
+        </div><br>
+
+        <div align='center' class='col'>
+            <h4>Configuración</h4><br>
+
+            <p class='lead'><strong>SSID:</strong> CasaTriana_TPLK</p><br>
+
+            <p class='lead'><strong>IP:</strong> 192.168.0.149</p><br>
+
+            <p class='lead'><strong>Estado red:</strong> Correcto</p><br>
+
+            <div class='custom-control custom-switch'>
+                <input type='checkbox' class='custom-control-input' id='customSwitch2' onclick='cambioEstadoAutocerrado()'> <label class='custom-control-label' for='customSwitch2'>Autocerrado al detectar lluvia</label><br>
+                <small class='text-muted'>Precaución: para evitar daños no se recomienda dejar apagado</small>
+            </div>
+        </div><br>
+        <br>
+    </div><br>
+    <br>
+
+    <p style='text-align:center'><small class='text-muted'>Creado y diseñado por</small> <a href='https://instagram.com/santiagotri'>@Santiagotri</a></p>
+</body>
+</html>
